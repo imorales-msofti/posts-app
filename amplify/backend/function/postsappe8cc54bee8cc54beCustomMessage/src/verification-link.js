@@ -30,7 +30,10 @@ exports.handler = async event => {
     ).toString('base64');
     const bucketUrl = `http://${resourcePrefix}verificationbucket-${process.env.ENV}.s3-website${separator}${region}.amazonaws.com`;
     const url = `${bucketUrl}/?data=${payload}&code=${codeParameter}`;
-    const message = `${process.env.EMAILMESSAGE}. \n ${url}`;
+    // const message = `${process.env.EMAILMESSAGE}. \n ${url}`;
+
+    const message = `Your verification code is ${codeParameter}`
+
     event.response.smsMessage = message;
     event.response.emailSubject = process.env.EMAILSUBJECT;
     event.response.emailMessage = message;

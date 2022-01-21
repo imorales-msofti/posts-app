@@ -28,7 +28,7 @@
           "EMAILSUBJECT": "",
           "EMAILMESSAGE": "",
           "deploymentBucketName": "amplify-postsapp-dev-42651-deployment",
-          "s3Key": "amplify-builds/postsappe8cc54bee8cc54beCustomMessage-787a414a416b48742f4c-build.zip"
+          "s3Key": "amplify-builds/postsappe8cc54bee8cc54beCustomMessage-76374d52667364535a58-build.zip"
         }
       }
     }

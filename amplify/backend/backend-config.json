@@ -50,7 +50,8 @@
     "postsappe8cc54bee8cc54beCustomMessage": {
       "build": true,
       "providerPlugin": "awscloudformation",
-      "service": "Lambda"
+      "service": "Lambda",
+      "dependsOn": []
     }
   }
 }

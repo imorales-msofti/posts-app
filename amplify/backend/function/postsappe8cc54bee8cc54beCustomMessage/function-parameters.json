@@ -22,5 +22,6 @@
   "EMAILSUBJECT": "",
   "EMAILMESSAGE": "",
   "RESOURCENAME": "resourceName",
-  "enableCors": false
+  "enableCors": false,
+  "permissions": {}
 }

@@ -13,7 +13,23 @@
     },
     "categories": {
       "auth": {
-        "postsapp8a14c0a3": {}
+        "postsapp8a14c0a3": {},
+        "postsappe8cc54bee8cc54be": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d3f86aapoh2ife",
+          "type": "cicd"
+        }
+      },
+      "function": {
+        "postsappe8cc54bee8cc54beCustomMessage": {
+          "REDIRECTURL": "",
+          "EMAILSUBJECT": "",
+          "EMAILMESSAGE": "",
+          "deploymentBucketName": "amplify-postsapp-dev-42651-deployment",
+          "s3Key": "amplify-builds/postsappe8cc54bee8cc54beCustomMessage-787a414a416b48742f4c-build.zip"
+        }
       }
     }
   }

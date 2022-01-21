@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-postsapp-dev-42651-authRole",
+      "UnauthRoleArn": "arn:aws:iam::922126656512:role/amplify-postsapp-dev-42651-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::922126656512:role/amplify-postsapp-dev-42651-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-postsapp-dev-42651-deployment",
+      "UnauthRoleName": "amplify-postsapp-dev-42651-unauthRole",
+      "StackName": "amplify-postsapp-dev-42651",
+      "StackId": "arn:aws:cloudformation:us-east-1:922126656512:stack/amplify-postsapp-dev-42651/a8d83690-7aa4-11ec-b90a-0eefddea774f",
+      "AmplifyAppId": "d3f86aapoh2ife"
+    },
+    "categories": {
+      "auth": {
+        "postsapp8a14c0a3": {}
+      }
+    }
+  }
+}

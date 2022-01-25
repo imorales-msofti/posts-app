@@ -45,6 +45,11 @@ class App extends Component {
     this.handleFormChange = this.handleFormChange.bind(this);
   }
 
+  refreshPosts = (post) => {
+    this.getPosts()
+      .then(({ data }) => this.setState({ posts: data }));
+  }
+
   editPost = (post) => {
     console.log('editPost');
     console.log(post);
@@ -56,7 +61,7 @@ class App extends Component {
 
     fetch(url, {
       method: 'DELETE',
-      headers: { 'Content-type': 'application/json' },      
+      headers: { 'Content-type': 'application/json' },
     })
       .then(() => {
         this.cleanForm();
@@ -172,6 +177,10 @@ class App extends Component {
 
           <Col xs={8}>
             <h2>Feed</h2>
+            <Button variant="primary" type="button" onClick={this.refreshPosts}>
+                Refresh
+            </Button>
+            <br/>
             <Table striped bordered hover size="sm">
               <thead>
                 <tr>

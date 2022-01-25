@@ -51,7 +51,7 @@ class App extends Component {
       .then(({ data }) => this.setState({ posts: data }));
   }
 
-  editPost = (post) => {
+  bindPost = (post) => {
     this.setState({
       post: post,
       formType: 'Edit'
@@ -102,6 +102,32 @@ class App extends Component {
 
         this.getPosts()
           .then(({ data }) => this.setState({ posts: data }))
+      })
+      ;
+
+  }
+
+
+
+  editPost = (event) => {
+
+    const url = `${process.env.REACT_APP_BASE_URL}/posts/${this.state.post._id}`
+
+    fetch(url, {
+      method: 'PATCH',
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify(
+        {
+          ...this.state.post,
+          user_id: this.state.user.attributes.sub,
+          updated_at: new Date().toISOString()
+        }),
+    })
+      .then(() => {
+        this.cleanForm();
+
+        this.getPosts()
+          .then(({ data }) => this.setState({ posts: data , formType: 'New'}))
       })
       ;
 
@@ -171,8 +197,8 @@ class App extends Component {
                 <Form.Control type="text" placeholder="Enter description" name="description" value={this.state.post.description} onChange={this.handleFormChange} />
               </Form.Group>
 
-              <Button variant="primary" type="button" onClick={this.addPost}>
-              {this.state.formType === 'New' ? 'Add' : 'Update'}
+              <Button variant="primary" type="button" onClick={(event) => { this.state.formType === 'New' ? this.addPost(event) : this.editPost(event) }}>
+                {this.state.formType === 'New' ? 'Add' : 'Update'}
               </Button>
             </Form>
 
@@ -203,7 +229,7 @@ class App extends Component {
                       <td>{itemPost.caption}</td>
                       <td>{itemPost.description}</td>
                       <td>{itemPost.created_at}</td>
-                      <td><Button variant="light" type="button" onClick={() => { this.editPost(itemPost) }}>Edit</Button></td>
+                      <td><Button variant="light" type="button" onClick={() => { this.bindPost(itemPost) }}>Edit</Button></td>
                       <td><Button variant="danger" type="button" onClick={() => { this.deletePost(itemPost._id) }}>Delete</Button></td>
                     </tr>)
                   })

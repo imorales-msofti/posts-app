@@ -44,7 +44,61 @@ class App extends Component {
 
     this.handleFormChange = this.handleFormChange.bind(this);
   }
-  
+
+  editPost = (post) => {
+    console.log('editPost');
+    console.log(post);
+  }
+
+  deletePost = (post) => {
+
+    const url = `${process.env.REACT_APP_BASE_URL}/posts/${post}`
+
+    fetch(url, {
+      method: 'DELETE',
+      headers: { 'Content-type': 'application/json' },      
+    })
+      .then(() => {
+        this.cleanForm();
+
+        this.getPosts()
+          .then(({ data }) => this.setState({ posts: data }))
+      })
+      ;
+  }
+
+  cleanForm = () => {
+    this.setState({
+      post: {
+        caption: '',
+        description: '',
+      }
+    })
+  }
+
+  addPost = () => {
+    const url = `${process.env.REACT_APP_BASE_URL}/posts/`
+
+    fetch(url, {
+      method: 'POST',
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify(
+        {
+          ...this.state.post,
+          user_id: this.state.user.attributes.sub,
+          created_at: new Date().toISOString()
+        }),
+    })
+      .then(() => {
+        this.cleanForm();
+
+        this.getPosts()
+          .then(({ data }) => this.setState({ posts: data }))
+      })
+      ;
+
+  }
+
   getPosts = () => {
     const url = `${process.env.REACT_APP_BASE_URL}/posts/`
 
@@ -59,12 +113,12 @@ class App extends Component {
 
   handleFormChange(event) {
 
-    console.log(event.target.name);
-
-    this.setState({post: {
-      ...this.state.post,
-      [event.target.name]:event.target.value
-    }});
+    this.setState({
+      post: {
+        ...this.state.post,
+        [event.target.name]: event.target.value
+      }
+    });
   }
 
   render() {
@@ -96,7 +150,7 @@ class App extends Component {
         <br />
         <Row>
           <Col>
-            <h2>Add New Post</h2>
+            <h2>New Post</h2>
 
             <Form>
               <Form.Group className="mb-3" controlId="formCaption">
@@ -106,7 +160,7 @@ class App extends Component {
 
               <Form.Group className="mb-3" controlId="formDescription">
                 <Form.Label>Description</Form.Label>
-                <Form.Control type="text" placeholder="description" name="description" value={this.state.post.description} onChange={this.handleFormChange} />
+                <Form.Control type="text" placeholder="Enter description" name="description" value={this.state.post.description} onChange={this.handleFormChange} />
               </Form.Group>
 
               <Button variant="primary" type="button" onClick={this.addPost}>
@@ -124,6 +178,9 @@ class App extends Component {
                   <th>#</th>
                   <th>Caption</th>
                   <th>Description</th>
+                  <th>CreatedAt</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
                 </tr>
               </thead>
               <tbody>
@@ -133,29 +190,13 @@ class App extends Component {
                       <td>{index + 1}</td>
                       <td>{itemPost.caption}</td>
                       <td>{itemPost.description}</td>
+                      <td>{itemPost.created_at}</td>
+                      <td><Button variant="light" type="button" onClick={() => { this.editPost(itemPost._id) }}>Edit</Button></td>
+                      <td><Button variant="danger" type="button" onClick={() => { this.deletePost(itemPost._id) }}>Delete</Button></td>
                     </tr>)
                   })
                 }
               </tbody>
-              {/* <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td colSpan={2}>Larry the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-              </tbody> */}
             </Table>
           </Col>
 

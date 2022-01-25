@@ -39,7 +39,8 @@ class App extends Component {
       post: {
         caption: '',
         description: '',
-      }
+      },
+      formType: 'New'
     };
 
     this.handleFormChange = this.handleFormChange.bind(this);
@@ -51,8 +52,10 @@ class App extends Component {
   }
 
   editPost = (post) => {
-    console.log('editPost');
-    console.log(post);
+    this.setState({
+      post: post,
+      formType: 'Edit'
+    })
   }
 
   deletePost = (post) => {
@@ -155,7 +158,7 @@ class App extends Component {
         <br />
         <Row>
           <Col>
-            <h2>New Post</h2>
+            <h2>{this.state.formType} Post</h2>
 
             <Form>
               <Form.Group className="mb-3" controlId="formCaption">
@@ -169,7 +172,7 @@ class App extends Component {
               </Form.Group>
 
               <Button variant="primary" type="button" onClick={this.addPost}>
-                Add
+              {this.state.formType === 'New' ? 'Add' : 'Update'}
               </Button>
             </Form>
 
@@ -178,9 +181,9 @@ class App extends Component {
           <Col xs={8}>
             <h2>Feed</h2>
             <Button variant="primary" type="button" onClick={this.refreshPosts}>
-                Refresh
+              Refresh
             </Button>
-            <br/>
+            <br />
             <Table striped bordered hover size="sm">
               <thead>
                 <tr>
@@ -200,7 +203,7 @@ class App extends Component {
                       <td>{itemPost.caption}</td>
                       <td>{itemPost.description}</td>
                       <td>{itemPost.created_at}</td>
-                      <td><Button variant="light" type="button" onClick={() => { this.editPost(itemPost._id) }}>Edit</Button></td>
+                      <td><Button variant="light" type="button" onClick={() => { this.editPost(itemPost) }}>Edit</Button></td>
                       <td><Button variant="danger" type="button" onClick={() => { this.deletePost(itemPost._id) }}>Delete</Button></td>
                     </tr>)
                   })
